@@ -10,6 +10,19 @@ Campus commerce and services PWA for **Lead City University (LCU)**, built for t
 - **WhatsApp handoff:** a prewritten order message sent with a `wa.me` link, as the alternative to paying in the app.
 - **Installable PWA:** manifest, generated icons, and a service worker for offline and weak networks.
 
+## Interswitch (IPG) live integration
+
+| | |
+|---|---|
+| Merchant code | `MX153376` (hackathon merchant) |
+| Payable name | **Hackathon Team 10**, shared: we are **Team 20** |
+| Pay item ID | `9381029` |
+| Environment | Live (`NEXT_PUBLIC_ISW_MODE=LIVE`), Web Checkout inline popup |
+
+Team 20 uses the "Hackathon Team 10" payable because there are more than 10 teams.
+Every payment is confirmed server-side with Interswitch's `gettransaction.json` requery
+before an order moves to escrow. Set `NEXT_PUBLIC_ISW_MODE=TEST` to use the sandbox with test cards.
+
 ## Run it
 
 ```bash
