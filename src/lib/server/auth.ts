@@ -1,6 +1,23 @@
 import "server-only";
 import type { SessionUser } from "../types";
-import { adminAuth, firebaseAuthEnabled } from "./firebase-admin";
+import { createRemoteJWKSet, jwtVerify } from "jose";
+import { firebaseAuthEnabled, projectId } from "./firebase-admin";
+
+// Firebase ID tokens are JWTs signed by Google. Verifying them with `jose` directly
+// avoids loading firebase-admin/auth, whose jwks-rsa dependency crashes on Vercel.
+const GOOGLE_KEYS = createRemoteJWKSet(
+  new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"),
+);
+
+async function verifyIdToken(token: string) {
+  const { payload } = await jwtVerify(token, GOOGLE_KEYS, {
+    issuer: `https://securetoken.google.com/${projectId}`,
+    audience: projectId,
+    algorithms: ["RS256"],
+  });
+  if (!payload.sub) throw new Error("Token has no user");
+  return { uid: payload.sub, email: typeof payload.email === "string" ? payload.email : "" };
+}
 
 export const DEMO_ADMIN_EMAIL = "admin@leadshop.demo";
 
@@ -22,7 +39,7 @@ export async function getSessionUser(req: Request): Promise<SessionUser | null> 
     const token = header.startsWith("Bearer ") ? header.slice(7) : "";
     if (!token) return null;
     try {
-      const decoded = await adminAuth().verifyIdToken(token);
+      const decoded = await verifyIdToken(token);
       const email = (decoded.email ?? "").toLowerCase();
       return { uid: decoded.uid, email, isAdmin: adminEmails().includes(email) };
     } catch {
