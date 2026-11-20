@@ -5,7 +5,10 @@ import { getFirestore, initializeFirestore, type Firestore } from "firebase-admi
 
 const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
 const clientEmail = process.env.FIREBASE_ADMIN_CLIENT_EMAIL;
-const privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, "\n");
+// Hosting dashboards often keep the quotes or escape the newlines when the key is pasted in: undo both.
+const privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.trim()
+  .replace(/^["']|["']$/g, "")
+  .replace(/\\n/g, "\n");
 
 /** Firestore needs a service account. Without one, data lives in memory (demo data). */
 export const firebaseAdminEnabled = Boolean(projectId && clientEmail && privateKey);

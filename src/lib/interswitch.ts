@@ -1,7 +1,7 @@
 // Interswitch Payment Gateway (IPG) Web Checkout settings shared by client and server.
 //
 // One switch: NEXT_PUBLIC_ISW_MODE=TEST | LIVE
-//   TEST → sandbox, public test merchant; use Interswitch's dummy test cards.
+//   TEST → sandbox, Interswitch docs test merchant MX19329 (card option works with test cards).
 //   LIVE → hackathon merchant; real cards / transfers only (from ₦10).
 // NEXT_PUBLIC_ISW_MERCHANT_CODE / NEXT_PUBLIC_ISW_PAY_ITEM_ID override the profile if set.
 
@@ -9,8 +9,8 @@ export const ISW_MODE: "TEST" | "LIVE" = process.env.NEXT_PUBLIC_ISW_MODE === "L
 
 const PROFILES = {
   TEST: {
-    merchantCode: "MX6072",
-    payItemId: "9405967",
+    merchantCode: "MX19329", // Interswitch docs test merchant: card payments enabled
+    payItemId: "Default_Payable_MX19329",
     scriptUrl: "https://newwebpay-sandbox.interswitchng.com/inline-checkout.js",
     requeryBase: "https://sandbox.interswitchng.com",
   },

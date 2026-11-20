@@ -10,8 +10,9 @@ import { rememberOrder } from "./CartProvider";
 import { AlertCircle, ArrowLeft, Ban, Check, Clock3, CreditCard, FULFILLMENT_ICONS, KeyRound, MessageCircle, RefreshCw, StickyNote, Ticket, UserRound } from "./icons";
 import { ProductImage } from "./ProductCard";
 
-export function OrderDetail({ id, sentVia }: { id: string; sentVia?: "whatsapp" }) {
+export function OrderDetail({ id, sentVia, justPaid = false }: { id: string; sentVia?: "whatsapp"; justPaid?: boolean }) {
   const [order, setOrder] = useState<Order | null>(null);
+  const [celebrate, setCelebrate] = useState(justPaid);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
   const [message, setMessage] = useState("");
@@ -42,7 +43,8 @@ export function OrderDetail({ id, sentVia }: { id: string; sentVia?: "whatsapp" 
       const data = await r.json();
       if (!r.ok) throw new Error(data.error);
       setOrder(data.order);
-      if (!silent) setMessage(data.order.status === "paid_escrow" ? "Payment confirmed." : data.message || "Payment not confirmed yet.");
+      if (data.order.status === "paid_escrow") setCelebrate(true);
+      else if (!silent) setMessage(data.message || "Payment not confirmed yet.");
     } catch (e) {
       if (!silent) setMessage((e as Error).message);
     } finally {
@@ -117,6 +119,20 @@ export function OrderDetail({ id, sentVia }: { id: string; sentVia?: "whatsapp" 
       <Link href="/orders" className="inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-ink">
         <ArrowLeft className="size-4" /> My orders
       </Link>
+
+      {celebrate && order.status === "paid_escrow" && (
+        <section role="status" className="card flex items-center gap-4 border-mint/30 bg-mint/10 p-5">
+          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-mint text-white">
+            <Check className="size-6" strokeWidth={3} />
+          </span>
+          <div className="min-w-0">
+            <p className="text-lg font-bold text-ink">Payment successful</p>
+            <p className="text-sm text-subtle">
+              Interswitch confirmed {formatKobo(order.totalKobo)}. It&apos;s held safely until you get your order.
+            </p>
+          </div>
+        </section>
+      )}
 
       <section className="card p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">

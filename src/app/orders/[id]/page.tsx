@@ -6,5 +6,5 @@ export const metadata: Metadata = { title: "Order" };
 export default async function OrderPage({ params, searchParams }: PageProps<"/orders/[id]">) {
   const { id } = await params;
   const sp = await searchParams;
-  return <OrderDetail id={id} sentVia={sp.sent === "whatsapp" ? "whatsapp" : undefined} />;
+  return <OrderDetail id={id} sentVia={sp.sent === "whatsapp" ? "whatsapp" : undefined} justPaid={sp.paid === "1"} />;
 }

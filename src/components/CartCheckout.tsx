@@ -181,11 +181,14 @@ export function CartCheckout() {
         redirectUrl: `${location.origin}/orders/${order.id}`,
       });
       setBusy("Confirming payment…");
-      await fetch(`/api/orders/${order.id}/verify-payment`, { method: "POST" }).catch(() => {});
+      const check = await fetch(`/api/orders/${order.id}/verify-payment`, { method: "POST" })
+        .then((r) => r.json())
+        .catch(() => null);
+      const paid = check?.order?.status === "paid_escrow";
       // The order now exists (and can be retried or cancelled from its page), so the cart is done.
       writePending(null);
       cart.clear();
-      router.push(`/orders/${order.id}`);
+      router.push(`/orders/${order.id}${paid ? "?paid=1" : ""}`);
     } catch (err) {
       setError((err as Error).message || "Couldn't place your order.");
       setBusy(null);
