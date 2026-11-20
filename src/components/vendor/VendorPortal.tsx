@@ -38,7 +38,7 @@ export function VendorPortal() {
 
   if (!user) {
     return (
-      <div className="grid items-start gap-8 lg:grid-cols-[1fr_440px] lg:gap-12">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_440px] lg:gap-12">
         <div className="space-y-6 lg:pt-6">
           <div>
             <p className="text-sm font-medium text-brand-600">For LCU vendors and service providers</p>

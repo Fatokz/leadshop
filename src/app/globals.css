@@ -34,6 +34,25 @@
 
 html {
   -webkit-tap-highlight-color: transparent;
+  /* Safety net: nothing may widen the page past the screen (phones would zoom out). */
+  overflow-x: clip;
+}
+
+/* Touch: no 300ms double-tap delay, and a visible press so taps feel responsive. */
+a,
+button,
+[role="button"],
+label,
+summary {
+  touch-action: manipulation;
+}
+@media (hover: none) {
+  a:active,
+  button:not(:disabled):active,
+  [role="button"]:active {
+    transform: scale(0.97);
+    transition: transform 80ms ease-out;
+  }
 }
 
 body {
@@ -54,7 +73,7 @@ body {
 }
 
 @utility btn {
-  @apply inline-flex h-10 items-center justify-center gap-2 rounded-xl px-4 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0;
+  @apply inline-flex h-10 items-center justify-center gap-2 rounded-xl px-4 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0;
 }
 @utility btn-primary {
   @apply btn bg-brand-600 text-white shadow-[0_2px_0_0_#a8380d] hover:bg-brand-700 active:translate-y-px active:shadow-none;

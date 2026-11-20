@@ -36,7 +36,7 @@ export default async function StorePage({ params }: PageProps<"/store/[slug]">) 
         <ArrowLeft className="size-4" /> All stores
       </Link>
 
-      <section className="relative grid gap-6 overflow-hidden rounded-3xl p-5 sm:p-7 lg:grid-cols-[1fr_320px]" style={{ backgroundColor: color.t }}>
+      <section className="relative grid grid-cols-1 gap-6 overflow-hidden rounded-3xl p-5 sm:p-7 lg:grid-cols-[1fr_320px]" style={{ backgroundColor: color.t }}>
         <span className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full opacity-25" style={{ backgroundColor: color.c }} />
         <span className="pointer-events-none absolute -bottom-12 right-24 size-24 rounded-full opacity-15" style={{ backgroundColor: color.c }} />
         <div className="relative flex gap-4">
@@ -73,10 +73,10 @@ export default async function StorePage({ params }: PageProps<"/store/[slug]">) 
         </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[1fr_320px]">
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_320px]">
         <div className="card divide-y divide-line">
           {store.bio && <p className="p-4 text-sm leading-relaxed text-subtle">{store.bio}</p>}
-          <dl className="grid gap-4 p-4 text-sm sm:grid-cols-3">
+          <dl className="grid grid-cols-1 gap-4 p-4 text-sm sm:grid-cols-3">
             <Meta Icon={UserRound} label="Run by" value={`${store.ownerName}${isOffCampus ? " (off-campus)" : ""}`} />
             <Meta Icon={MapPin} label="Pickup spot" value={store.pickupZone} />
             <Meta Icon={Clock3} label="Hours" value={store.openingHours || "Not set"} />

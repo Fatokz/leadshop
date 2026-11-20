@@ -187,7 +187,7 @@ function ReviewCard({ store, reload }: { store: Store; reload(): Promise<void> }
         </div>
         <VerificationLabel store={store} />
       </div>
-      <dl className="grid gap-3 border-t border-line p-4 text-sm sm:grid-cols-3">
+      <dl className="grid grid-cols-1 gap-3 border-t border-line p-4 text-sm sm:grid-cols-3">
         <KV k="Type" v={student ? "LCU student" : "Off-campus provider"} Icon={student ? GraduationCap : ShieldCheck} />
         <KV k={student ? "Matric number" : "ID"} v={student ? v.matricNumber ?? "—" : `${v.externalIdType ?? "—"} ending ${v.externalIdLast4 ?? "—"}`} />
         <KV k="WhatsApp · pickup" v={`${store.whatsapp} · ${store.pickupZone}`} />
@@ -297,7 +297,7 @@ function GateTab() {
             </div>
           </div>
           {(result.store || result.pass) && (
-            <dl className="grid gap-3 p-4 text-sm sm:grid-cols-2">
+            <dl className="grid grid-cols-1 gap-3 p-4 text-sm sm:grid-cols-2">
               {result.store && <KV k="Provider" v={`${result.store.ownerName} · ${result.store.name}`} />}
               {result.store && <KV k="ID on file" v={`${result.store.verification.externalIdType ?? "—"} ending ${result.store.verification.externalIdLast4 ?? "—"}`} />}
               {result.pass && <KV k="Visiting" v={`${result.buyerName} · ${result.pass.destination}`} />}

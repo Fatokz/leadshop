@@ -70,7 +70,7 @@ export function OnboardingForm({ existing, onSaved, onCancel }: { existing: Stor
       </div>
 
       <Step n={1} title="Vendor type">
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {(
             [
               ["on_campus_student", GraduationCap, "LCU student", "Student ID and LCU business permit"],
@@ -93,7 +93,7 @@ export function OnboardingForm({ existing, onSaved, onCancel }: { existing: Stor
       </Step>
 
       <Step n={2} title="Store details">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field label="Store name">
             <input className="input" required value={f.name} onChange={set("name")} placeholder="Mama Tee's Kitchen" />
           </Field>
@@ -154,7 +154,7 @@ export function OnboardingForm({ existing, onSaved, onCancel }: { existing: Stor
       </Step>
 
       <Step n={3} title="Verification">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {student ? (
             <Field label="Matric number" wide>
               <input className="input uppercase" required value={f.matricNumber} onChange={set("matricNumber")} placeholder="LCU/UG/22/12345" />

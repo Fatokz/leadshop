@@ -319,7 +319,7 @@ function AddItemForm({ categories, onDone, onCancel }: { categories: CategorySlu
   }
 
   return (
-    <form onSubmit={submit} className="card grid gap-4 p-5 sm:grid-cols-2">
+    <form onSubmit={submit} className="card grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
       <h3 className="text-sm font-semibold text-ink sm:col-span-2">New item</h3>
       <div className="sm:col-span-2">
         <span className="label">Name</span>

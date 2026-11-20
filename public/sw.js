@@ -2,7 +2,7 @@
 // - Static assets (/_next/static, icons): cache-first.
 // - Pages: network-first, falling back to the cached copy, then an offline page.
 // - API calls and Interswitch are never cached.
-const VERSION = "leadshop-v3";
+const VERSION = "leadshop-v4";
 const SHELL = ["/", "/cart", "/orders", "/offline.html", "/icons/192", "/icons/512"];
 
 self.addEventListener("install", (event) => {

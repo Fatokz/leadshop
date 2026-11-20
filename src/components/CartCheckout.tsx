@@ -196,7 +196,7 @@ export function CartCheckout() {
   }
 
   return (
-    <form onSubmit={placeOrder} className="grid gap-6 lg:grid-cols-[1fr_380px] lg:gap-8">
+    <form onSubmit={placeOrder} className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_380px] lg:gap-8">
       <div className="space-y-6">
         <div className="flex items-baseline justify-between gap-3">
           <h1 className="text-2xl font-semibold tracking-tight text-ink">Checkout</h1>
@@ -245,7 +245,7 @@ export function CartCheckout() {
 
         {store && campus && (
           <Section title="Delivery">
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {store.fulfillmentModes.map((m) => {
                 const Icon = FULFILLMENT_ICONS[m];
                 const on = mode === m;
@@ -281,7 +281,7 @@ export function CartCheckout() {
               </div>
             )}
 
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {needsAddress && (
                 <Field id="address" label={mode === "off_campus_shuttle" ? "Off-campus address" : mode === "custom_location" ? "Location on campus" : "Hostel and room"} wide={!(mode === "in_room_service" || store.vendorType === "off_campus_service")}>
                   <input
@@ -316,7 +316,7 @@ export function CartCheckout() {
         )}
 
         <Section title="Contact details">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field id="name" label="Full name">
               <input id="name" className="input" required autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} />
             </Field>
